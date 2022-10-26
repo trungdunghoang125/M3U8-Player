@@ -2,6 +2,7 @@ package com.example.m3u8player;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         M3U8PlayerButton = findViewById(R.id.m3u8_player_btn);
         MP3PlayerButton = findViewById(R.id.mp3_player_btn);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         M3U8PlayerButton.setOnClickListener(view -> {
             startM3U8Player();

@@ -1,7 +1,9 @@
 package com.example.m3u8player;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +14,7 @@ import com.google.android.exoplayer2.util.Util;
 
 public class VOVMediaStreamingActivity extends AppCompatActivity {
     private static final String urlStream = "http://media.kythuatvov.vn:7003/;stream/";
+    private static final String urlStream2 = "https://strm.voh.com.vn/radio/channel2/playlist.m3u8";
     private PlayerControlView playerControlView;
     private ExoPlayer player;
     private boolean playWhenReady = true;
@@ -23,7 +26,7 @@ public class VOVMediaStreamingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vovmedia_streaming);
         playerControlView = findViewById(R.id.VOVMediaPlayer);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
@@ -63,8 +66,13 @@ public class VOVMediaStreamingActivity extends AppCompatActivity {
         player = new ExoPlayer.Builder(this)
                 .build();
         playerControlView.setPlayer(player);
-        MediaItem mediaItem = MediaItem.fromUri(urlStream);
-        player.setMediaItem(mediaItem);
+        Uri uri1 = Uri.parse(urlStream);
+        MediaItem mediaItem1 = MediaItem.fromUri(uri1);
+        player.setMediaItem(mediaItem1);
+
+        Uri uri2 = Uri.parse(urlStream2);
+        MediaItem mediaItem2 = MediaItem.fromUri(uri2);
+        player.addMediaItem(mediaItem2);
 
         player.setPlayWhenReady(playWhenReady);
         player.seekTo(currentWindow, playbackPosition);
